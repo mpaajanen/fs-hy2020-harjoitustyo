@@ -1,0 +1,23 @@
+{
+  "name": "fs-hy2020-harjoitustyo",
+  "version": "0.0.1",
+  "description": "Fullstack-hy2020 harjoitustyö",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mpaajanen/fs-hy2020-harjoitustyo.git"
+  },
+  "keywords": [
+    "fullstack"
+  ],
+  "author": "Mikko Paajanen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mpaajanen/fs-hy2020-harjoitustyo/issues"
+  },
+  "homepage": "https://github.com/mpaajanen/fs-hy2020-harjoitustyo#readme"
+}
