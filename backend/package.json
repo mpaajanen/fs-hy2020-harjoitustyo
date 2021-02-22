@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +20,11 @@
   "bugs": {
     "url": "https://github.com/mpaajanen/fs-hy2020-harjoitustyo/issues"
   },
-  "homepage": "https://github.com/mpaajanen/fs-hy2020-harjoitustyo#readme"
+  "homepage": "https://github.com/mpaajanen/fs-hy2020-harjoitustyo#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
 }
