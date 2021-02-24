@@ -1,8 +1,13 @@
 const { request, response } = require('express')
+require('dotenv').config()
 const express = require('express')
 const app = express()
+const cors = require('cors')
+const Player = require('./models/player')
 
+app.use(cors())
 app.use(express.json())
+app.use(express.static('build'))
 
 const requestLogger = (request, response, next) => {
     console.log('Method:', request.method)
@@ -12,10 +17,6 @@ const requestLogger = (request, response, next) => {
     next()
 }
 
-const unknownEndpoint = (request, response) => {
-    response.status(404).send({ error: 'unknown endpoint' })
-}
-  
 app.use(requestLogger)
   
 let players = [
@@ -36,31 +37,54 @@ let players = [
     },
     ]
 
-app.get('/', (req, res) => {
-    res.send('<h1>Testing...</h1>')
+app.get('/', (request, response) => {
+    response.send('<h1>Testing...</h1>')
 })
     
-app.get('/api/players', (req, res) => {
-    res.json(players)
-})
+app.get('/api/players', (request, response) => {
+    Player.find({}).then(players => {
+        response.json(players)
+      })
+    })
 
-app.get('/api/players/:id', (request, response) => {
-    const id = Number(request.params.id)
-    const player = players.find(player => player.id === id)
-    if (player){
+app.get('/api/players/:id', (request, response, next) => {
+    Player
+    .findById(request.params.id)
+    .then(player => {
+      if(player) {
         response.json(player)
-    }
-    else {
+      }
+      else {
         response.status(404).end()
+      }
+    })
+    .catch(error => next(error))
+})
+
+app.delete('/api/players/:id', (request, response, next) => {
+    Player
+    .findByIdAndRemove(request.params.id)
+    .then(result => {
+      response.status(204).end()
+    })
+    .catch(error => next(error))
+})
+
+app.put('/api/players/:id', (request, response, next) => {
+    const body = request.body
+  
+    const player = {
+      name: body.name,
+      number: body.surname
     }
-})
-
-app.delete('/api/players/:id', (request, response) => {
-    const id = Number(request.params.id)
-    const player = players.filter(player => player.id !== id)
-
-    response.status(204).end()
-})
+  
+    Player
+      .findByIdAndUpdate(request.params.id, person, { new: true })
+      .then(updatedPlayer => {
+        response.json(updatedPlayer)
+      })
+      .catch(error => next(error))
+  })
 
 const generateId = () => {
     const maxId = players.length > 0
@@ -78,19 +102,41 @@ app.post('/api/players/', (request, response) => {
         })
     }
 
-    const player = {
+    const player = new Player ({
         id: generateId(),
         name: body.name,
         surname: body.surname
-    }
+    })
 
-    players = players.concat(player)
-
-    response.json(player)
+    player
+        .save()
+        .then(savedPlayer => savedPlayer.toJSON())
+        .then(savedAndFormatedPlayer => {
+            response.json(savedAndFormatedPlayer)
+        })
+        .catch(error => next(error))
 })
 
-app.use(unknownEndpoint)
+const unknownEndpoint = (request, response) => {
+    response.status(404).send({ error: 'unknown endpoint' })
+}
+  
+const errorHandler = (error, request, response, next) => {
+    console.error(error.message)
+    console.error(error.name)
+  
+    if(error.name === 'CastError') {
+      return response.status(400).send({ error: 'malformatted id' })
+    } else if (error.name === 'ValidationError') {
+      return response.status(400).json({ error: error.message })
+    }
+  
+    next(error)
+  }
+  
+  app.use(unknownEndpoint)
+  app.use(errorHandler)
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT)
 console.log(`Server running on port ${PORT}`)
