@@ -63,7 +63,7 @@ playersRouter.put('/:id', (request, response, next) => {
 //   return maxId + 1
 // }
 
-playersRouter.post('/', (request, response, next) => {
+playersRouter.post('/', async (request, response, next) => {
   const body = request.body
 
   if (!body.name || !body.surname) {
@@ -71,6 +71,12 @@ playersRouter.post('/', (request, response, next) => {
       error: 'name, surname or both missing'
     })
   }
+
+  const decodedToken = jwt.verify(request.token, process.env.SECRET)
+  if (!request.token || !decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' })
+  }
+  const user = await User.findById(decodedToken.id)
 
   const player = new Player ({
     // id: generateId(),
