@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import Player from './components/Player'
 import Notification from './components/Notification'
+import AddPlayerForm from './components/AddPlayerForm'
 import playerService from './services/player'
 import loginService from './services/login'
 
@@ -24,7 +25,7 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
+    const loggedUserJSON = window.localStorage.getItem('loggedTournamentappUser')
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
@@ -42,7 +43,7 @@ const App = () => {
       })
 
       window.localStorage.setItem(
-        'loggedBlogappUser', JSON.stringify(user)
+        'loggedTournamentappUser', JSON.stringify(user)
       )
       playerService.setToken(user.token)
       setUser(user)
@@ -60,11 +61,10 @@ const App = () => {
     window.localStorage.removeItem('loggedBlogappUser')
   }
 
-  const addPlayer = (event) => {
-    event.preventDefault()
+  const addPlayer = (player) => {
     const playerObject = {
-      name: newName,
-      surname: newSurname,
+      name: player[0],
+      surname: player[1],
       id: players.length + 1,
     }
 
@@ -75,14 +75,6 @@ const App = () => {
         setNewName('')
         setNewSurname('')
       })
-  }
-
-  const handleNameChange = (event) => {
-    setNewName(event.target.value)
-  }
-
-  const handleSurnameChange = (event) => {
-    setNewSurname(event.target.value)
   }
 
   if (user === null) {
@@ -133,19 +125,7 @@ const App = () => {
           <Player key={player.id} player={player} />
         )}
       </ul>
-      <form onSubmit={addPlayer}>
-                Name:
-        <input
-          value={newName}
-          onChange={handleNameChange}
-        /><br />
-                Surname:
-        <input
-          value={newSurname}
-          onChange={handleSurnameChange}
-        /><br />
-        <button type="submit">Add player</button>
-      </form>
+      <AddPlayerForm addPlayer={addPlayer} />
     </div>
   )
 }
