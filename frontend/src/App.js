@@ -4,8 +4,9 @@ import Player from './components/Player'
 import Notification from './components/Notification'
 import AddPlayerForm from './components/AddPlayerForm'
 import LoginForm from './components/LoginForm'
+import Logout from './components/Logout'
 import playerService from './services/player'
-import loginService from './services/login'
+import login from './services/login'
 
 const App = () => {
   const [players, setPlayers] = useState([])
@@ -41,6 +42,7 @@ const App = () => {
 
   const handleLogout = () => {
     window.localStorage.removeItem('loggedTournamentappUser')
+    setUser(null)
   }
 
   const addPlayer = (player) => {
@@ -59,31 +61,34 @@ const App = () => {
       })
   }
 
-  if (user === null) {
+  const showLogin = () => {
+    return (
+      <LoginForm handleLogin={handleLogin} />
+    )
+  }
+
+  const showLogout = () => {
     return (
       <div>
-        <LoginForm handleLogin={handleLogin} />
+        <Notification message={errorMessage} />
+        <Logout handleLogout={handleLogout} loggedUser={user.name} />
+        <h1>Players:</h1>
+        <ul>
+          {players.map((player, i) =>
+            <Player key={player.id} player={player} />
+          )}
+        </ul>
+        <AddPlayerForm addPlayer={addPlayer} />
       </div>
     )
   }
 
   return (
     <div>
-      <Notification message={errorMessage} />
-      <div>
-        {user.name} is logged in
-        <form onSubmit={handleLogout}>
-          <button type="submit">logout</button>
-        </form>
-      </div>
+      {user === null ?
+        showLogin() :
+        showLogout()}
 
-      <h1>Players:</h1>
-      <ul>
-        {players.map((player, i) =>
-          <Player key={player.id} player={player} />
-        )}
-      </ul>
-      <AddPlayerForm addPlayer={addPlayer} />
     </div>
   )
 }

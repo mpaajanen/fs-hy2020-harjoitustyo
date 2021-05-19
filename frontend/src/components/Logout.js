@@ -1,8 +1,18 @@
 import React from 'react'
 
-const Logout = () => {
+const Logout = ({ handleLogout, loggedUser }) => {
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    handleLogout()
+  }
+
   return (
-    <div></div>
+    <div>
+      {loggedUser} is logged in
+      <form onSubmit={event => handleSubmit(event)}>
+        <button type="submit">logout</button>
+      </form>
+    </div>
   )
 }
 
