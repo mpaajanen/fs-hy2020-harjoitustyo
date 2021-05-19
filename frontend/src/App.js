@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Player from './components/Player'
 import Notification from './components/Notification'
 import AddPlayerForm from './components/AddPlayerForm'
+import LoginForm from './components/LoginForm'
 import playerService from './services/player'
 import loginService from './services/login'
 
@@ -33,32 +34,13 @@ const App = () => {
     }
   }, [])
 
-  const handleLogin = async (event) => {
-    event.preventDefault()
-    console.log('logging in with', username, password)
-
-    try {
-      const user = await loginService.login({
-        username, password
-      })
-
-      window.localStorage.setItem(
-        'loggedTournamentappUser', JSON.stringify(user)
-      )
-      playerService.setToken(user.token)
-      setUser(user)
-      setUsername('')
-      setPassword('')
-    } catch (exception) {
-      setErrorMessage('wrong credentials')
-      setTimeout(() => {
-        setErrorMessage(null)
-      }, 5000)
-    }
+  const handleLogin = (user) => {
+    console.log('logging in with', user)
+    setUser(user)
   }
 
   const handleLogout = () => {
-    window.localStorage.removeItem('loggedBlogappUser')
+    window.localStorage.removeItem('loggedTournamentappUser')
   }
 
   const addPlayer = (player) => {
@@ -80,31 +62,7 @@ const App = () => {
   if (user === null) {
     return (
       <div>
-        <h2>Log in to application</h2>
-        <Notification message={errorMessage} />
-        <form onSubmit={handleLogin}>
-          <div>
-                username
-            <input
-              id="username"
-              type="text"
-              value={username}
-              name="Username"
-              onChange={({ target }) => setUsername(target.value)}
-            />
-          </div>
-          <div>
-                password
-            <input
-              id="password"
-              type="password"
-              value={password}
-              name="Password"
-              onChange={({ target }) => setPassword(target.value)}
-            />
-          </div>
-          <button type="submit" id="login-button">login</button>
-        </form>
+        <LoginForm handleLogin={handleLogin} />
       </div>
     )
   }
