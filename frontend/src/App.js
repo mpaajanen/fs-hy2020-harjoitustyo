@@ -1,22 +1,13 @@
-/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
-import Player from './components/Player'
-import Notification from './components/Notification'
 import AddPlayerForm from './components/AddPlayerForm'
 import LoginForm from './components/LoginForm'
 import Logout from './components/Logout'
 import playerService from './services/player'
-import login from './services/login'
+import ListPlayers from './components/ListPlayers'
 
 const App = () => {
   const [players, setPlayers] = useState([])
-  const [newName, setNewName] = useState('New name...')
-  const [newSurname, setNewSurname] = useState('New surname...')
-
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     playerService
@@ -56,8 +47,6 @@ const App = () => {
       .create(playerObject)
       .then(returnedPlayer => {
         setPlayers(players.concat(returnedPlayer))
-        setNewName('')
-        setNewSurname('')
       })
   }
 
@@ -67,17 +56,11 @@ const App = () => {
     )
   }
 
-  const showLogout = () => {
+  const showContent = () => {
     return (
       <div>
-        <Notification message={errorMessage} />
         <Logout handleLogout={handleLogout} loggedUser={user.name} />
-        <h1>Players:</h1>
-        <ul>
-          {players.map((player, i) =>
-            <Player key={player.id} player={player} />
-          )}
-        </ul>
+        <ListPlayers players={players} />
         <AddPlayerForm addPlayer={addPlayer} />
       </div>
     )
@@ -87,7 +70,7 @@ const App = () => {
     <div>
       {user === null ?
         showLogin() :
-        showLogout()}
+        showContent()}
 
     </div>
   )

@@ -7,6 +7,8 @@ const AddPlayerForm = ({ addPlayer }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    setNewName('')
+    setNewSurname('')
     addPlayer([newName, newSurname])
   }
 
