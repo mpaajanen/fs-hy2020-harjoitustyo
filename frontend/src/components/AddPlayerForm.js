@@ -1,15 +1,26 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState } from 'react'
+import playerService from '../services/player'
 
-const AddPlayerForm = ({ addPlayer }) => {
+const AddPlayerForm = ({ players, onAdd }) => {
   const [newName, setNewName] = useState('New name...')
   const [newSurname, setNewSurname] = useState('New surname...')
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    const playerObject = {
+      name: newName,
+      surname: newSurname,
+      id: players.length + 1,
+    }
+
+    playerService
+      .create(playerObject)
+      .then(returnedPlayer => {
+        onAdd(returnedPlayer)
+      })
+
     setNewName('')
     setNewSurname('')
-    addPlayer([newName, newSurname])
   }
 
   const handleNameChange = (event) => {

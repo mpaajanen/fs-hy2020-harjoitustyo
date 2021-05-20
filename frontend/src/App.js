@@ -36,20 +36,6 @@ const App = () => {
     setUser(null)
   }
 
-  const addPlayer = (player) => {
-    const playerObject = {
-      name: player[0],
-      surname: player[1],
-      id: players.length + 1,
-    }
-
-    playerService
-      .create(playerObject)
-      .then(returnedPlayer => {
-        setPlayers(players.concat(returnedPlayer))
-      })
-  }
-
   const showLogin = () => {
     return (
       <LoginForm handleLogin={handleLogin} />
@@ -61,7 +47,7 @@ const App = () => {
       <div>
         <Logout handleLogout={handleLogout} loggedUser={user.name} />
         <ListPlayers players={players} />
-        <AddPlayerForm addPlayer={addPlayer} />
+        <AddPlayerForm players={players} onAdd={(returnedPlayer) => setPlayers(players.concat(returnedPlayer))} />
       </div>
     )
   }
