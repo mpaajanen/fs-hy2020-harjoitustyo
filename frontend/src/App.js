@@ -46,7 +46,7 @@ const App = () => {
     return (
       <div>
         <Logout handleLogout={handleLogout} loggedUser={user.name} />
-        <ListPlayers players={players} />
+        <ListPlayers players={players} onRemove={(updatedList) => setPlayers(updatedList)} />
         <AddPlayerForm players={players} onAdd={(returnedPlayer) => setPlayers(players.concat(returnedPlayer))} />
       </div>
     )

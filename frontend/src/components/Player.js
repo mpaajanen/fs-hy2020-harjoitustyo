@@ -1,8 +1,14 @@
 import React from 'react'
 
-const Player = ({ player }) => {
+const Player = ({ player, onDelete }) => {
+
+  const handleRemove = () => {
+    console.log('poista' + player.id)
+    onDelete(player.id)
+  }
+
   return (
-    <li>{player.name} {player.surname} {player.id}</li>
+    <li>{player.name} {player.surname} <button onClick={handleRemove} >remove</button></li>
   )
 }
 
