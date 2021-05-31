@@ -1,0 +1,7 @@
+PUT http://localhost:3001/api/tournaments/60acbadae2952b26dc26ed52
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2MDM2NWYwYzVlNTQ5NTA4ZGM0OTdiOWYiLCJpYXQiOjE2MTQyNTY4NTl9.-oGJeXe4k80crExejGEtFR1vtK045tW8w7mBAe2-B_A
+
+{
+    "participant": "60a63d8ed391392decab1f05"
+}

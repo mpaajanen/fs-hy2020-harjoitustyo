@@ -1,0 +1,1 @@
+PUT http://localhost:3001/api/tournaments/add/60acbadae2952b26dc26ed52

@@ -7,6 +7,7 @@ const cors = require('cors')
 const playersRouter = require('./controllers/players')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
+const tournamentsRouter = require('./controllers/tournaments')
 const mongoose = require('mongoose')
 
 console.log('connecting to ', config.MONGODB_URI)
@@ -27,5 +28,7 @@ app.use(middleware.tokenExtractor)
 app.use('/api/players', playersRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
+app.use('/api/tournaments', tournamentsRouter)
+app.use('/api/tournaments/add', tournamentsRouter)
 
 module.exports = app

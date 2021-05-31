@@ -3,9 +3,12 @@ import AddPlayerForm from './components/AddPlayerForm'
 import LoginForm from './components/LoginForm'
 import Logout from './components/Logout'
 import playerService from './services/player'
+import tournamentService from './services/tournament'
 import ListPlayers from './components/ListPlayers'
 import Menu from './components/Menu'
 import Tournament from './components/Tournament'
+// import AddTournamentForm from './components/AddTournamentForm'
+import Kokeilu from './components/Kokeilu'
 
 const App = () => {
   const [players, setPlayers] = useState([])
@@ -26,6 +29,7 @@ const App = () => {
       const user = JSON.parse(loggedUserJSON)
       setUser(user)
       playerService.setToken(user.token)
+      tournamentService.setToken(user.token)
     }
   }, [])
 
@@ -58,6 +62,8 @@ const App = () => {
       return(
         <div>
           <Tournament />
+          {/* <AddTournamentForm onCreate={(returnedTournament) => createTournament(returnedTournament)} /> */}
+          <Kokeilu />
         </div>
       )
     default:
@@ -75,6 +81,10 @@ const App = () => {
       </div>
     )
   }
+
+  // const createTournament = (tournament) => {
+  //   console.log(tournament)
+  // }
 
   return (
     <div>
