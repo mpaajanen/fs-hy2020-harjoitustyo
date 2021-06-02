@@ -8,7 +8,7 @@ import ListPlayers from './components/ListPlayers'
 import Menu from './components/Menu'
 import Tournament from './components/Tournament'
 // import AddTournamentForm from './components/AddTournamentForm'
-import Kokeilu from './components/Kokeilu'
+import CreateTournament from './components/CreateTournament'
 
 const App = () => {
   const [players, setPlayers] = useState([])
@@ -63,7 +63,7 @@ const App = () => {
         <div>
           <Tournament />
           {/* <AddTournamentForm onCreate={(returnedTournament) => createTournament(returnedTournament)} /> */}
-          <Kokeilu />
+          <CreateTournament players={players} />
         </div>
       )
     default:
