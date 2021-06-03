@@ -5,13 +5,28 @@ import Button from '@material-ui/core/Button'
 const clickHandler = () => {
   console.log('click')
 
-  const matchObject = {
+  // const matchObject = {
+  //   tournament: '60b744cbfaa68d32945f5f0f',
+  //   player1: '60a63e0bd391392decab1f07',
+  //   player2: '60a63e41d391392decab1f08',
+  //   points1: [0, 78, 53],
+  //   points2: [90, 6, 51],
+  // }
+
+  const matchObject = [{
     tournament: '60b744cbfaa68d32945f5f0f',
     player1: '60a63e0bd391392decab1f07',
     player2: '60a63e41d391392decab1f08',
     points1: [0, 78, 53],
     points2: [90, 6, 51],
-  }
+  },{
+    tournament: '60b744cbfaa68d32945f5f0f',
+    player1: '60a63e0bd391392decab1f07',
+    player2: '60a63e41d391392decab1f08',
+    points1: [120, 8, 55],
+    points2: [0, 68, 54],
+
+  }]
 
   matchService
     .create(matchObject)

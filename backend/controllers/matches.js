@@ -34,6 +34,15 @@ matchesRouter.delete('/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
+matchesRouter.delete('/', (request, response, next) => {
+  Match
+    .deleteMany({})
+    .then(() => {
+      response.status(204).end()
+    })
+    .catch(error => next(error))
+})
+
 matchesRouter.put('/:id', (request, response, next) => {
   const body = request.body
   console.log(body)
@@ -51,7 +60,7 @@ matchesRouter.put('/:id', (request, response, next) => {
 
 matchesRouter.post('/', (request, response, next) => {
   const body = request.body
-  console.log(body)
+  // console.log(body)
 
   //TODO: kelvoillisuuden tarkistukset
   // if (!body.name) {
@@ -66,22 +75,54 @@ matchesRouter.post('/', (request, response, next) => {
     return response.status(401).json({ error: 'token missing or invalid' })
   }
 
-  const match = new Match ({
-    tournament: body.tournament,
-    player1: body.player1,
-    player2: body.player2,
-    points1: body.points1,
-    points2: body.points2,
+  const arr = []
+  body.forEach(match => {
+    const modelledMatch =
+    new Match({
+      tournament: match.tournament,
+      player1: match.player1,
+      player2: match.player2,
+      points1: match.points1,
+      points2: match.points2,
+    })
+    arr.push(modelledMatch)
   })
-  console.log(match)
 
-  match
-    .save()
-    .then(savedMatch => savedMatch.toJSON())
-    .then(savedAndFormatedMatch => {
-      response.json(savedAndFormatedMatch)
+  console.log(arr)
+
+  // const match1 = new Match ({
+  //   tournament: body.tournament,
+  //   player1: body.player1,
+  //   player2: body.player2,
+  //   points1: body.points1,
+  //   points2: body.points2,
+  // })
+  // const match2 = new Match ({
+  //   tournament: body.tournament,
+  //   player1: body.player1,
+  //   player2: body.player2,
+  //   points1: body.points1,
+  //   points2: body.points2,
+  // })
+  // const matchArr = [match1, match2]
+  // console.log(matchArr)
+
+  Match
+    .insertMany(arr)
+    // .then(savedMatches => savedMatches.toJSON())
+    .then(savedAndFormatedMatches => {
+      // response.json(savedAndFormatedMatches)
+      console.log(savedAndFormatedMatches)
     })
     .catch(error => next(error))
+
+  // match
+  //   .save()
+  //   .then(savedMatch => savedMatch.toJSON())
+  //   .then(savedAndFormatedMatch => {
+  //     response.json(savedAndFormatedMatch)
+  //   })
+  //   .catch(error => next(error))
 })
 
 module.exports = matchesRouter
