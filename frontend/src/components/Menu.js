@@ -5,6 +5,7 @@ const Menu = ({ onSelection }) => {
     <div>
       <button onClick={() => onSelection('players') }>Pelaajat</button>
       <button onClick={() => onSelection('tournament')}>Turnaus</button>
+      <button onClick={() => onSelection('matches')}>Ottelut</button>
 
     </div>
   )

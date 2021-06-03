@@ -4,11 +4,13 @@ import LoginForm from './components/LoginForm'
 import Logout from './components/Logout'
 import playerService from './services/player'
 import tournamentService from './services/tournament'
+import matchService from './services/match'
 import ListPlayers from './components/ListPlayers'
 import Menu from './components/Menu'
 import Tournament from './components/Tournament'
 // import AddTournamentForm from './components/AddTournamentForm'
 import CreateTournament from './components/CreateTournament'
+import MatchesTemp from './components/MatchesTemp'
 
 const App = () => {
   const [players, setPlayers] = useState([])
@@ -30,6 +32,7 @@ const App = () => {
       setUser(user)
       playerService.setToken(user.token)
       tournamentService.setToken(user.token)
+      matchService.setToken(user.token)
     }
   }, [])
 
@@ -64,6 +67,12 @@ const App = () => {
           <Tournament />
           {/* <AddTournamentForm onCreate={(returnedTournament) => createTournament(returnedTournament)} /> */}
           <CreateTournament players={players} />
+        </div>
+      )
+    case 'matches':
+      return(
+        <div>
+          <MatchesTemp />
         </div>
       )
     default:
