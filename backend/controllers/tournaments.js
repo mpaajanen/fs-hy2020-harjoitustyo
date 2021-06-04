@@ -35,6 +35,15 @@ tournamentsRouter.delete('/:id', (request, response, next) => {
     .catch(error => next(error))
 })
 
+tournamentsRouter.delete('/', (request, response, next) => {
+  Tournament
+    .deleteMany({})
+    .then(() => {
+      response.status(204).end()
+    })
+    .catch(error => next(error))
+})
+
 tournamentsRouter.put('/:id', (request, response, next) => {
   const body = request.body
   console.log(body.participant)

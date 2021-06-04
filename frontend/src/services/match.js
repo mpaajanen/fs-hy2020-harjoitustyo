@@ -39,4 +39,9 @@ const del = (id) => {
   return request.then(response => response.data)
 }
 
-export default { setToken, getAll, create, update, addPlayer, del }
+const delAll = () => {
+  const request = axios.delete(`${baseUrl}/`)
+  return request.then(response => response.data)
+}
+
+export default { setToken, getAll, create, update, addPlayer, del, delAll }

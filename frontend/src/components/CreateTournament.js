@@ -33,16 +33,28 @@ const CreateTournament = ( players ) => {
   const createMatches = (tournament) => {
     console.log('Luodaan ottelut turnaukselle')
     console.log(tournament)
+    console.log()
 
     const matchArr = []
+    const numOfPlayers = tournament.participant.length
     let i = 0
-    for (i = 0; i < 3; i=i+2){
-      const matchObj = {
-        tournament: tournament.id,
-        player1: tournament.participant[i],
-        player2: tournament.participant[i+1],
+    for (i = 0; i < numOfPlayers; i=i+2){
+      if(i< numOfPlayers -2){
+        const matchObj = {
+          tournament: tournament.id,
+          player1: tournament.participant[i],
+          player2: tournament.participant[i+1],
+        }
+        matchArr.push(matchObj)
       }
-      matchArr.push(matchObj)
+      else  {
+        const matchObj = {
+          tournament: tournament.id,
+          player1: tournament.participant[i],
+          player2: numOfPlayers%2 === 0 ? tournament.participant[i+1] : tournament.participant[i],
+        }
+        matchArr.push(matchObj)
+      }
     }
 
     console.log(matchArr)
@@ -52,18 +64,6 @@ const CreateTournament = ( players ) => {
       .then(returnedMatch => {
         console.log(returnedMatch)
       })
-
-    // const matchObject = {
-    //   tournament: tournament.id,
-    //   player1: tournament.participant[0],
-    //   player2: tournament.participant[1],
-    // }
-
-    // matchService
-    //   .create(matchObject)
-    //   .then(returnedMatch => {
-    //     console.log(returnedMatch)
-    //   })
   }
 
   const handleNameChange = (event) => {
