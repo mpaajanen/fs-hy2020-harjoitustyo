@@ -9,6 +9,7 @@ const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 const tournamentsRouter = require('./controllers/tournaments')
 const matchesRouter = require('./controllers/matches')
+const seedsRouter = require('./controllers/seeds')
 const mongoose = require('mongoose')
 
 console.log('connecting to ', config.MONGODB_URI)
@@ -32,5 +33,6 @@ app.use('/api/login', loginRouter)
 app.use('/api/tournaments', tournamentsRouter)
 app.use('/api/tournaments/add', tournamentsRouter)
 app.use('/api/matches', matchesRouter)
+app.use('/api/seeds', seedsRouter)
 
 module.exports = app

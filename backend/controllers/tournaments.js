@@ -76,7 +76,6 @@ tournamentsRouter.put('/:id', (request, response, next) => {
 })
 
 tournamentsRouter.put('/add/:id', (request, response, next) => {
-// tournamentsRouter.put('/add/:id', (request, response) => {
   const body = request.body
   const uupe = request.body.testi
   console.log(body)

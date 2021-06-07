@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import PlayerSelection from './PlayerSelection'
 import tournamentService from '../services/tournament'
 import matchService from '../services/match'
+import seedService from '../services/seed'
 
 const CreateTournament = ( players ) => {
   const [selectedPlayers, setSelectedPlayers] = useState([])
@@ -26,6 +27,7 @@ const CreateTournament = ( players ) => {
       .then(returnedTournament => {
         console.log(returnedTournament)
         createMatches(returnedTournament)
+        createSeeds(returnedTournament)
       })
     setNewName('')
   }
@@ -63,6 +65,30 @@ const CreateTournament = ( players ) => {
       .create(matchArr)
       .then(returnedMatch => {
         console.log(returnedMatch)
+      })
+  }
+
+  const createSeeds = (tournament) => {
+    console.log('Luodaan arvonta turnaukselle')
+    console.log(tournament)
+
+    const seedArr = []
+    const numOfPlayers = tournament.participant.length
+    let i = 0
+    for (i = 0; i < numOfPlayers; i++){
+      const seedObj = {
+        tournament: tournament.id,
+        player: tournament.participant[i],
+      }
+      seedArr.push(seedObj)
+    }
+
+    console.log(seedArr)
+
+    seedService
+      .create(seedArr)
+      .then(returnedSeeds => {
+        console.log(returnedSeeds)
       })
   }
 

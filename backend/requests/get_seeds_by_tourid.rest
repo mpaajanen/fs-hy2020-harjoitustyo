@@ -1,0 +1,1 @@
+GET http://localhost:3001/api/seeds/60bde34b1fa01649f8b45cf0

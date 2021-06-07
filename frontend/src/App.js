@@ -11,11 +11,12 @@ import Tournament from './components/Tournament'
 // import AddTournamentForm from './components/AddTournamentForm'
 import CreateTournament from './components/CreateTournament'
 import MatchesTemp from './components/MatchesTemp'
+import DrawViewTemp from './components/DrawViewTemp'
 
 const App = () => {
   const [players, setPlayers] = useState([])
   const [user, setUser] = useState(null)
-  const [currentContent, setCurrentContent] = useState('players')
+  const [currentContent, setCurrentContent] = useState('draw')
 
   useEffect(() => {
     playerService
@@ -73,6 +74,12 @@ const App = () => {
       return(
         <div>
           <MatchesTemp />
+        </div>
+      )
+    case 'draw':
+      return(
+        <div>
+          <DrawViewTemp />
         </div>
       )
     default:

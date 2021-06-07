@@ -88,7 +88,7 @@ matchesRouter.post('/', (request, response, next) => {
     arr.push(modelledMatch)
   })
 
-  console.log(arr)
+  // console.log(arr)
 
   // const match1 = new Match ({
   //   tournament: body.tournament,
@@ -111,8 +111,8 @@ matchesRouter.post('/', (request, response, next) => {
     .insertMany(arr)
     // .then(savedMatches => savedMatches.toJSON())
     .then(savedAndFormatedMatches => {
-      // response.json(savedAndFormatedMatches)
-      console.log(savedAndFormatedMatches)
+      response.json(savedAndFormatedMatches)
+      // console.log(savedAndFormatedMatches)
     })
     .catch(error => next(error))
 
