@@ -18,8 +18,9 @@ seedsRouter.post('/', (request, response, next) => {
   const body = request.body
   const arr = []
   let i = 0
+  const numberOfPlayers = body.length
 
-  const seeds = [1,2,3,4,5,6,7,8]
+  const seeds = [...Array(129).keys()].splice(1, numberOfPlayers)
   shuffle(seeds)
 
   body.forEach(seed => {
@@ -33,11 +34,10 @@ seedsRouter.post('/', (request, response, next) => {
     arr.push(modelledSeed)
   })
 
-
   Seed
     .insertMany(arr)
     .then(savedSeeds => {
-      console.log(savedSeeds)
+      response.json(savedSeeds)
     })
     .catch(error => next(error))
 })

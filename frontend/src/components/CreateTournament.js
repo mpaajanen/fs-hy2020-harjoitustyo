@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+// import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PlayerSelection from './PlayerSelection'
 import tournamentService from '../services/tournament'
 import matchService from '../services/match'
@@ -7,10 +8,11 @@ import seedService from '../services/seed'
 const CreateTournament = ( players ) => {
   const [selectedPlayers, setSelectedPlayers] = useState([])
   const [newName, setNewName] = useState('')
+  // const [seeds, setSeeds] = useState([])
 
-  useEffect(() => {
-    console.log(selectedPlayers)
-  }, [selectedPlayers])
+  // useEffect(() => {
+  //   console.log(selectedPlayers)
+  // }, [selectedPlayers])
 
   const handleCreateTournament = (event) => {
     event.preventDefault()
@@ -25,28 +27,40 @@ const CreateTournament = ( players ) => {
     tournamentService
       .create(tournamentObject)
       .then(returnedTournament => {
-        console.log(returnedTournament)
-        createMatches(returnedTournament)
+        // console.log(returnedTournament)
         createSeeds(returnedTournament)
+        // createMatches(returnedTournament)
       })
     setNewName('')
   }
 
-  const createMatches = (tournament) => {
+  const createMatches = (tournament, seeds) => {
     console.log('Luodaan ottelut turnaukselle')
     console.log(tournament)
-    console.log()
+    console.log(seeds)
+
+    const draw8Template = [1,8,6,4,3,5,7,2]
+    const draw8Players = []
+
+    draw8Template.forEach((seed, i) => {
+      draw8Players[i] = seeds.find(seeds => seeds.seed === seed)
+    })
+
+    console.log(draw8Players)
 
     const matchArr = []
     const numOfPlayers = tournament.participant.length
     let i = 0
     for (i = 0; i < numOfPlayers; i=i+2){
-      if(i< numOfPlayers -2){
+      if(i<= numOfPlayers -2){
         const matchObj = {
           tournament: tournament.id,
-          player1: tournament.participant[i],
-          player2: tournament.participant[i+1],
+          // player1: tournament.participant[i],
+          // player2: tournament.participant[i+1],
+          player1: draw8Players[i].participant,
+          player2: draw8Players[i+1].participant,
         }
+        console.log(matchObj)
         matchArr.push(matchObj)
       }
       else  {
@@ -58,8 +72,6 @@ const CreateTournament = ( players ) => {
         matchArr.push(matchObj)
       }
     }
-
-    console.log(matchArr)
 
     matchService
       .create(matchArr)
@@ -83,12 +95,12 @@ const CreateTournament = ( players ) => {
       seedArr.push(seedObj)
     }
 
-    console.log(seedArr)
-
     seedService
       .create(seedArr)
       .then(returnedSeeds => {
         console.log(returnedSeeds)
+        // setSeeds(returnedSeeds)
+        createMatches(tournament, returnedSeeds)
       })
   }
 

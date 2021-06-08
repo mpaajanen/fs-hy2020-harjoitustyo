@@ -9,8 +9,6 @@ import Paper from '@material-ui/core/Paper'
 
 const PlayerSelectionList = ({ side, checked, onToggle }) => {
 
-  console.log(side)
-
   const useStyles = makeStyles((theme) => ({
     root: {
       margin: 'auto',

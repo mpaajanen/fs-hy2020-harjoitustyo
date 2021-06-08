@@ -18,7 +18,7 @@ const DrawViewTemp = () => {
       .then(initialTournaments => {
         setTournaments(initialTournaments)
       })
-  })
+  }, [])
 
   useEffect(() => {
     seedService

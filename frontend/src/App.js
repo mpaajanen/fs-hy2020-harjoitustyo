@@ -16,7 +16,7 @@ import DrawViewTemp from './components/DrawViewTemp'
 const App = () => {
   const [players, setPlayers] = useState([])
   const [user, setUser] = useState(null)
-  const [currentContent, setCurrentContent] = useState('draw')
+  const [currentContent, setCurrentContent] = useState('players')
 
   useEffect(() => {
     playerService
