@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import tournamentService from '../services/tournament'
-import seedService from '../services/seed'
+import matchService from '../services/match'
+import Matches from './Matches'
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
@@ -10,7 +11,7 @@ import Select from '@material-ui/core/Select'
 const DrawViewTemp = () => {
   const [tournaments, setTournaments] = useState([])
   const [selectedTournament, setSelectedTournament] = useState('')
-  // const [seeds, setSeeds] = useState([])
+  const [matches, setMatches] = useState([])
 
   useEffect(() => {
     tournamentService
@@ -21,11 +22,14 @@ const DrawViewTemp = () => {
   }, [])
 
   useEffect(() => {
-    seedService
-      .getByTournamnetId(selectedTournament)
-      .then(seeds => {
-        console.log(seeds)
-      })
+    if(selectedTournament){
+      matchService
+        .getByTournamentId(selectedTournament)
+        .then(matches => {
+        // console.log(matches)
+          setMatches(matches)
+        })
+    }
   }, [selectedTournament])
 
   const useStyles = makeStyles((theme) => ({
@@ -61,6 +65,7 @@ const DrawViewTemp = () => {
           )}
         </Select>
       </FormControl>
+      <Matches matches={matches ? matches : []} />
 
     </div>
   )

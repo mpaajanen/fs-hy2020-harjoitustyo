@@ -6,7 +6,7 @@ const getAll = () => {
   return request.then(response => response.data)
 }
 
-const getByTournamnetId = (id) => {
+const getByTournamentId = (id) => {
   const request = axios.get(`${baseUrl}/${id}`)
   return request.then(response => response.data)
 }
@@ -21,4 +21,4 @@ const delAll = () => {
   return request.then(response => response.data)
 }
 
-export default { getAll, getByTournamnetId, create, delAll }
+export default { getAll, getByTournamentId, create, delAll }

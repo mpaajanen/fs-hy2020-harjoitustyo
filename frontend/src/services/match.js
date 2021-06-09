@@ -12,6 +12,11 @@ const getAll = () => {
   return request.then(response => response.data)
 }
 
+const getByTournamentId = (id) => {
+  const request = axios.get(`${baseUrl}/${id}`)
+  return request.then(response => response.data)
+}
+
 const create = newObject => {
   const config = {
     headers: { Authorization: token }
@@ -44,4 +49,4 @@ const delAll = () => {
   return request.then(response => response.data)
 }
 
-export default { setToken, getAll, create, update, addPlayer, del, delAll }
+export default { setToken, getAll, getByTournamentId, create, update, addPlayer, del, delAll }

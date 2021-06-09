@@ -11,19 +11,29 @@ matchesRouter.get('/', async (request, response) => {
   response.json(matches.map(match => match.toJSON()))
 })
 
-matchesRouter.get('/:id', (request, response, next) => {
-  Match
-    .findById(request.params.id)
-    .then(match => {
-      if(match) {
-        response.json(match)
-      }
-      else {
-        response.status(404).end()
-      }
-    })
-    .catch(error => next(error))
+// matchesRouter.get('/:id', (request, response, next) => {
+//   Match
+//     .findById(request.params.id)
+//     .then(match => {
+//       if(match) {
+//         response.json(match)
+//       }
+//       else {
+//         response.status(404).end()
+//       }
+//     })
+//     .catch(error => next(error))
+// })
+
+matchesRouter.get('/:tournamentId', async (request, response) => {
+  const matches = await Match
+    .find({ tournament: request.params.tournamentId })
+    .populate('tournament', { name: 1 })
+    .populate('player1')
+    .populate('player2')
+  response.json(matches.map(tournament => tournament.toJSON()))
 })
+
 
 matchesRouter.delete('/:id', (request, response, next) => {
   Match

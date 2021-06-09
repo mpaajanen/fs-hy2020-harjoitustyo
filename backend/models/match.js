@@ -2,10 +2,10 @@ const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 
 const matchSchema = new mongoose.Schema({
-  tournament: [{
+  tournament: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Tournament'
-  }],
+  },
   player1: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Player'
