@@ -1,4 +1,5 @@
 import React from 'react'
+import Result from './Result'
 
 const Match = ({ match }) => {
   console.log(match)
@@ -6,6 +7,7 @@ const Match = ({ match }) => {
     <div>
       <span>
         {match.player1.surname} - {match.player2.surname}
+        <Result />
       </span>
     </div>
   )
