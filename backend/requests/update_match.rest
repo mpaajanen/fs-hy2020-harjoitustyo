@@ -1,0 +1,11 @@
+PUT http://localhost:3001/api/matches/60bf4110ded690105c79a0ac
+Content-Type: application/json
+
+{
+    "tournament": "60bf410fded690105c79a0a3",
+    "player1": "60a63e0bd391392decab1f07",
+    "player2": "60a6404bd391392decab1f0a",
+    "points1": [120, 8, 55],
+    "points2": [0, 68, 54]
+}
+

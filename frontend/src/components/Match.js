@@ -5,8 +5,21 @@ const Match = ({ match }) => {
   console.log(match)
   return (
     <div>
+      <table>
+        <tbody>
+          <tr>
+            <td>{match.player1.surname}</td>
+            {match.points1.map((points, index) =>
+              <td key={index}>{points}</td>)}
+          </tr>
+          <tr>
+            <td>{match.player2.surname}</td>
+            {match.points2.map((points, index) =>
+              <td key={index}>{points}</td>)}
+          </tr>
+        </tbody>
+      </table>
       <span>
-        {match.player1.surname} - {match.player2.surname}
         <Result />
       </span>
     </div>

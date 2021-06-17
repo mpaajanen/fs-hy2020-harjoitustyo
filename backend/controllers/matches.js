@@ -57,11 +57,8 @@ matchesRouter.put('/:id', (request, response, next) => {
   const body = request.body
   console.log(body)
 
-  const match = { body }
-
   Match
-    .findByIdAndUpdate(request.params.id, match, { new: true })
-    .populate('participant')
+    .findByIdAndUpdate(request.params.id, body, { new: true })
     .then(updatedMatch => {
       response.json(updatedMatch)
     })
