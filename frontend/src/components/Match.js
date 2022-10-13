@@ -20,7 +20,7 @@ const Match = ({ match }) => {
         </tbody>
       </table>
       <span>
-        <Result />
+        <Result match={match}/>
       </span>
     </div>
   )

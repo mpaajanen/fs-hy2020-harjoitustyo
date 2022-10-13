@@ -1,50 +1,69 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TextField from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton'
 import DoneIcon from '@material-ui/icons/Done'
 import DeleteIcon from '@material-ui/icons/Delete'
+import matchService from '../services/match'
 
-const ResultForm = () => {
-  const frameObj = {
-    p1: '',
-    p2: ''
+
+const ResultForm = ({ match }) => {
+  const frameObj = { p1: '', p2: '' }
+  const [frameScores, setFrameScores] = useState([frameObj])
+
+  const mergeScores = (match) => {
+    console.log('match', match)
+    const scores = match.points1.map((points, index) => {
+      return { p1: points, p2: match.points2[index] }
+    })
+    return scores
   }
-  const [pointFields, setPointFields] = useState([frameObj])
+
+  useEffect(() => {
+    const scores = match.points1.length > 0 ? mergeScores(match) : frameScores
+    setFrameScores(scores)
+  }, [])
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log('tulos lähetetty', pointFields)
+    const updatedMatch = {
+      tournament: match.tournament.id,
+      player1: match.player1.id,
+      player2: match.player2.id,
+      points1: frameScores.map(scores => scores.p1),
+      points2: frameScores.map(scores => scores.p2),
+    }
+    matchService
+      .update(match.id, updatedMatch)
+      .then(returnedMatch => {
+        console.log('returnedMatch', returnedMatch)
+      })
+    console.log('tulos lähetetty', frameScores)
   }
 
-  // const handleChange = (event) => {
-  //   event.preventDefault
-  //   console.log('p1')
-  // }
-
   const handleChange = (index, event) => {
-    const newPointFields = pointFields.map((i, ind) => {
+    const newPointFields = frameScores.map((i, ind) => {
       if(ind === index) {
         i[event.target.name] = event.target.value
       }
       return i
     })
 
-    setPointFields(newPointFields)
+    setFrameScores(newPointFields)
   }
 
   const handleAddFields = () => {
-    setPointFields([...pointFields, frameObj])
+    setFrameScores([...frameScores, frameObj])
   }
 
   const handleRemoveFields = index => {
-    const values  = [...pointFields]
+    const values  = [...frameScores]
     values.splice(index, 1)
-    setPointFields(values)
+    setFrameScores(values)
   }
 
   return (
     <form onSubmit={event => handleSubmit(event)}>
-      {pointFields.map((pointField, index) => (
+      {frameScores.map((pointField, index) => (
         <div key={index} >
           <TextField
             name="p1"
@@ -64,7 +83,7 @@ const ResultForm = () => {
           <IconButton onClick={handleAddFields}          >
             <DoneIcon />
           </IconButton>
-          <IconButton disabled={pointFields.length === 1} onClick={() => handleRemoveFields(index)}>
+          <IconButton disabled={frameScores.length === 1} onClick={() => handleRemoveFields(index)}>
             <DeleteIcon />
           </IconButton>
         </div>

@@ -20,7 +20,7 @@ import ResultForm from './ResultForm'
 //   )
 // }
 
-const Result = () => {
+const Result = ({ match }) => {
   const [anchorEl, setAnchorEl] = React.useState(null)
 
   const handleClick = (event) => {
@@ -53,7 +53,7 @@ const Result = () => {
           horizontal: 'center',
         }}
       >
-        <span><ResultForm /></span>
+        <span><ResultForm match={match}/></span>
       </Popover>
     </div>
   )}
