@@ -23,8 +23,12 @@ import ResultForm from './ResultForm'
 const Result = ({ match }) => {
   const [anchorEl, setAnchorEl] = React.useState(null)
 
-  const handleClick = (event) => {
+  const handleResultBtn = (event) => {
     setAnchorEl(event.currentTarget)
+  }
+
+  const handleConfirmBtn = () => {
+    console.log('Tulos vahvistettu')
   }
 
   const handleClose = () => {
@@ -36,8 +40,11 @@ const Result = ({ match }) => {
 
   return (
     <div>
-      <Button aria-describedby={id} variant="contained" color="primary" onClick={handleClick}>
+      <Button aria-describedby={id} variant="contained" color="primary" onClick={handleResultBtn}>
         Syötä tulos
+      </Button>
+      <Button aria-describedby={id} variant="contained" color="primary" onClick={handleConfirmBtn}>
+        Vahvista
       </Button>
       <Popover
         id={id}
