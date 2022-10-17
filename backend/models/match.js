@@ -16,6 +16,8 @@ const matchSchema = new mongoose.Schema({
   },
   points1: [{ type: Number }],
   points2: [{ type: Number }],
+  number: { type: Number },
+  winnerToNumber: { type: Number },
 })
 
 matchSchema.set('toJSON', {
