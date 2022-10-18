@@ -6,6 +6,7 @@ import playerService from './services/player'
 import tournamentService from './services/tournament'
 import matchService from './services/match'
 import ListPlayers from './components/ListPlayers'
+import ListTournaments from './components/ListTournaments'
 import Menu from './components/Menu'
 import Tournament from './components/Tournament'
 // import AddTournamentForm from './components/AddTournamentForm'
@@ -60,6 +61,12 @@ const App = () => {
         <div>
           <ListPlayers players={players} onRemove={(updatedList) => setPlayers(updatedList)} />
           <AddPlayerForm players={players} onAdd={(returnedPlayer) => setPlayers(players.concat(returnedPlayer))} />
+        </div>
+      )
+    case 'tournaments':
+      return (
+        <div>
+          <ListTournaments />
         </div>
       )
     case 'tournament':
