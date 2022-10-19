@@ -84,6 +84,9 @@ matchesRouter.post('/', (request, response, next) => {
 
   const arr = []
   body.forEach(match => {
+    if (match.player1 === 'wo' || match.player2 === 'wo') {
+      console.log('wo')
+    }
     const modelledMatch =
     new Match({
       tournament: match.tournament,
@@ -91,28 +94,14 @@ matchesRouter.post('/', (request, response, next) => {
       player2: match.player2,
       points1: match.points1,
       points2: match.points2,
+      number: match.number,
+      winnerToNumber: match.winnerToNumber,
+      wo1: match.wo1,
+      wo2: match.wo2,
     })
     arr.push(modelledMatch)
   })
-
-  // console.log(arr)
-
-  // const match1 = new Match ({
-  //   tournament: body.tournament,
-  //   player1: body.player1,
-  //   player2: body.player2,
-  //   points1: body.points1,
-  //   points2: body.points2,
-  // })
-  // const match2 = new Match ({
-  //   tournament: body.tournament,
-  //   player1: body.player1,
-  //   player2: body.player2,
-  //   points1: body.points1,
-  //   points2: body.points2,
-  // })
-  // const matchArr = [match1, match2]
-  // console.log(matchArr)
+  console.log(arr)
 
   Match
     .insertMany(arr)
@@ -122,14 +111,6 @@ matchesRouter.post('/', (request, response, next) => {
       // console.log(savedAndFormatedMatches)
     })
     .catch(error => next(error))
-
-  // match
-  //   .save()
-  //   .then(savedMatch => savedMatch.toJSON())
-  //   .then(savedAndFormatedMatch => {
-  //     response.json(savedAndFormatedMatch)
-  //   })
-  //   .catch(error => next(error))
 })
 
 module.exports = matchesRouter
