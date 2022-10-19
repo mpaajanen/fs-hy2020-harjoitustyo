@@ -1,7 +1,7 @@
 import React from 'react'
 import Result from './Result'
 
-const Match = ({ match }) => {
+const Match = ({ match, handleConfirmBtn }) => {
   const woObj = {
     name: '',
     surname: 'w.o.'
@@ -55,7 +55,7 @@ const Match = ({ match }) => {
         </tbody>
       </table>
       <span>
-        <Result match={match}/>
+        <Result match={match} handleConfirmBtn={handleConfirmBtn}/>
       </span>
     </div>
   )

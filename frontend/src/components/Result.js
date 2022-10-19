@@ -20,16 +20,16 @@ import ResultForm from './ResultForm'
 //   )
 // }
 
-const Result = ({ match }) => {
+const Result = ({ match, handleConfirmBtn }) => {
   const [anchorEl, setAnchorEl] = React.useState(null)
 
   const handleResultBtn = (event) => {
     setAnchorEl(event.currentTarget)
   }
 
-  const handleConfirmBtn = () => {
-    console.log('Tulos vahvistettu')
-  }
+  // const handleConfirmBtn = () => {
+  //   console.log('Tulos vahvistettu')
+  // }
 
   const handleClose = () => {
     setAnchorEl(null)
@@ -43,7 +43,7 @@ const Result = ({ match }) => {
       <Button aria-describedby={id} variant="contained" color="primary" onClick={handleResultBtn}>
         Syötä tulos
       </Button>
-      <Button aria-describedby={id} variant="contained" color="primary" onClick={handleConfirmBtn}>
+      <Button aria-describedby={id} variant="contained" color="primary" onClick={() => handleConfirmBtn(match)}>
         Vahvista
       </Button>
       <Popover
