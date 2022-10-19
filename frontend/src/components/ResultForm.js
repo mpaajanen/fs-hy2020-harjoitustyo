@@ -27,8 +27,8 @@ const ResultForm = ({ match }) => {
     event.preventDefault()
     const updatedMatch = {
       tournament: match.tournament.id,
-      player1: match.player1.id,
-      player2: match.player2.id,
+      player1: match.player1 ? match.player1.id : null,
+      player2: match.player2 ? match.player2.id : null,
       points1: frameScores.map(scores => scores.p1),
       points2: frameScores.map(scores => scores.p2),
     }
