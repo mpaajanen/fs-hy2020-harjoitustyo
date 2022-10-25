@@ -3,10 +3,10 @@ import TextField from '@material-ui/core/TextField'
 import IconButton from '@material-ui/core/IconButton'
 import DoneIcon from '@material-ui/icons/Done'
 import DeleteIcon from '@material-ui/icons/Delete'
-import matchService from '../services/match'
+// import matchService from '../services/match'
 
 
-const ResultForm = ({ match }) => {
+const ResultForm = ({ match, handleResultUpdate }) => {
   const frameObj = { p1: '', p2: '' }
   const [frameScores, setFrameScores] = useState([frameObj])
 
@@ -23,22 +23,22 @@ const ResultForm = ({ match }) => {
     setFrameScores(scores)
   }, [])
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    const updatedMatch = {
-      tournament: match.tournament.id,
-      player1: match.player1 ? match.player1.id : null,
-      player2: match.player2 ? match.player2.id : null,
-      points1: frameScores.map(scores => scores.p1),
-      points2: frameScores.map(scores => scores.p2),
-    }
-    matchService
-      .update(match.id, updatedMatch)
-      .then(returnedMatch => {
-        console.log('returnedMatch', returnedMatch)
-      })
-    console.log('tulos lähetetty', frameScores)
-  }
+  // const handleSubmit = (event) => {
+  //   event.preventDefault()
+  //   const updatedMatch = {
+  //     tournament: match.tournament.id,
+  //     player1: match.player1 ? match.player1.id : null,
+  //     player2: match.player2 ? match.player2.id : null,
+  //     points1: frameScores.map(scores => scores.p1),
+  //     points2: frameScores.map(scores => scores.p2),
+  //   }
+  //   matchService
+  //     .update(match.id, updatedMatch)
+  //     .then(returnedMatch => {
+  //       console.log('returnedMatch', returnedMatch)
+  //     })
+  //   console.log('tulos lähetetty', frameScores)
+  // }
 
   const handleChange = (index, event) => {
     const newPointFields = frameScores.map((i, ind) => {
@@ -62,7 +62,8 @@ const ResultForm = ({ match }) => {
   }
 
   return (
-    <form onSubmit={event => handleSubmit(event)}>
+    // <form onSubmit={event => handleSubmit(event)}>
+    <form onSubmit={event => handleResultUpdate(event, match, frameScores)}>
       {frameScores.map((pointField, index) => (
         <div key={index} >
           <TextField

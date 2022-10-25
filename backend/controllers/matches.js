@@ -94,6 +94,7 @@ matchesRouter.post('/', (request, response, next) => {
       player2: match.player2,
       points1: match.points1,
       points2: match.points2,
+      round: match.round,
       number: match.number,
       winnerToNumber: match.winnerToNumber,
       wo1: match.wo1,
@@ -108,7 +109,6 @@ matchesRouter.post('/', (request, response, next) => {
     // .then(savedMatches => savedMatches.toJSON())
     .then(savedAndFormatedMatches => {
       response.json(savedAndFormatedMatches)
-      // console.log(savedAndFormatedMatches)
     })
     .catch(error => next(error))
 })

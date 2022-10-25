@@ -16,6 +16,7 @@ const matchSchema = new mongoose.Schema({
   },
   points1: [{ type: Number }],
   points2: [{ type: Number }],
+  round: { type: Number },
   number: { type: Number },
   winnerToNumber: { type: Number },
   wo1: { type: Boolean },

@@ -20,7 +20,7 @@ import ResultForm from './ResultForm'
 //   )
 // }
 
-const Result = ({ match, handleConfirmBtn }) => {
+const Result = ({ match, handleConfirmBtn, handleResultUpdate }) => {
   const [anchorEl, setAnchorEl] = React.useState(null)
 
   const handleResultBtn = (event) => {
@@ -60,7 +60,7 @@ const Result = ({ match, handleConfirmBtn }) => {
           horizontal: 'center',
         }}
       >
-        <span><ResultForm match={match}/></span>
+        <span><ResultForm match={match} handleResultUpdate={handleResultUpdate} /></span>
       </Popover>
     </div>
   )}

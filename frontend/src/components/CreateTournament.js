@@ -64,6 +64,7 @@ const CreateTournament = ( players ) => {
         tournament: tournament.id,
         player1: pairing[0] === 'wo' ? null : pairing[0],
         player2: pairing[1] === 'wo' ? null : pairing[1],
+        round: 1,
         number: matchNumbers.pop(),
         winnerToNumber: winnerTo.pop(),
         wo1: pairing[0] === 'wo',
